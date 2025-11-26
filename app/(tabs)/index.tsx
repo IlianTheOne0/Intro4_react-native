@@ -254,7 +254,7 @@ export default function HomeScreen()
 
                   <View style={styles.deliveryMeta}>
                     <View style={styles.metaGroup}>
-                      <Ionicons name="time-outline" size={16} color="#vce3f8"/>
+                      <Ionicons name="time-outline" size={16} color="#fff"/>
                       <Text style={styles.metaText}>ETA: {delivery.eta}</Text>
                     </View>
                     <Text style={styles.metaText}>Прогрес: {(delivery.progress * 100).toFixed(0)}%</Text>
@@ -263,12 +263,46 @@ export default function HomeScreen()
                   <View style={styles.progressTrack}>
                     <View style={[styles.progressFill, {width: `${(delivery.progress * 100).toFixed(0)}%`}]}/>
                   </View>
-                  
+
                   <Text style={styles.deliveryNote}>{delivery.note}</Text>
                 </View>
               )
             )
           }
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Маршут дня</Text>
+
+          <View style={styles.eventContainer}>
+            {
+              timeline.map
+              (
+                (event) =>
+                (
+                  <View key={event.id} style={styles.event}>
+                    <View style={styles.eventIcon}>
+                      {
+                        event.finished ?
+                        (<View style={[styles.timelineIcon, styles.timelineFinishedIcon]}></View>)
+                        :
+                        (<Ionicons style={styles.timelineIcon} name={"ellipse-outline"} size={20} color="#e3e3e3ff"/>)
+                      }
+
+                      <Ionicons name="remove" size={20} color="#e3e3e3ff" style={styles.eventLine}/>
+                    </View>
+
+                    <View style={styles.eventText}>
+                      <Text style={styles.eventTitle}>{event.title}</Text>
+                      <Text style={styles.eventDetail}>{event.detail}</Text>
+                    </View>
+
+                    <Text style={styles.eventTime}>{event.time}</Text>
+                  </View>
+                )
+              )
+            }
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -504,6 +538,64 @@ const styles = StyleSheet.create
     {
       fontSize: 12,
       color: "#e0f2fe",
+    },
+    eventContainer:
+    {
+      gap: 16,
+      width: "98.5%",
+      alignSelf: "center",
+      backgroundColor: "#fff",
+      padding: 16,
+      borderRadius: 16,
+    },
+    event:
+    {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      gap: 12
+    },
+    eventIcon:
+    {
+      alignItems: "center",
+      width: 24,
+    },
+    timelineIcon:
+    {
+      marginBottom: 4
+    },
+    timelineFinishedIcon:
+    {
+      width: 16,
+      height: 16,
+      borderRadius: 8,
+      backgroundColor: "#517ef9ff"
+    },
+    eventLine:
+    {
+      flex: 1,
+      width: 2,
+      backgroundColor: "#e3e3e3ff"
+    },
+    eventText:
+    {
+      flex: 2,
+      gap: 4
+    },
+    eventTitle:
+    {
+      fontSize: 16,
+      fontWeight: "600",
+      color: "#0f172a"
+    },
+    eventDetail:
+    {
+      fontSize: 13,
+      color: "#64748b"
+    },
+    eventTime:
+    {
+      fontSize: 12,
+      color: "#94a3b8"
     }
   }
 );
