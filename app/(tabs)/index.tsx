@@ -1,4 +1,4 @@
-import { View, Text,  Modal,Button, StyleSheet, FlatList, Image, TouchableOpacity, Pressable, TouchableWithoutFeedback, TextInput, ScrollView } from "react-native";
+import { View, Text,  Modal,Button, StyleSheet, FlatList, Image, TouchableOpacity, Pressable, TouchableWithoutFeedback, TextInput, ScrollView, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -183,6 +183,15 @@ export default function HomeScreen()
     catch(error) { console.warn("Не вдалося зберегти дію", error); }
   }
 
+  const handleStartingDrill = async(drillId: string) =>
+  {
+    try
+    {
+      throw new Error("Прототипна помилка запуску вправи");
+    }
+    catch(error) { console.warn("Не вдалося розпочати вправу", error); Alert.alert("Помилка", "Не вдалося розпочати вправу. Спробуйте пізніше"); }
+  }
+
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -303,6 +312,33 @@ export default function HomeScreen()
               )
             }
           </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Міні-тренування</Text>
+          {
+            skillDrills.map
+            (
+              (drill) =>
+              (
+                <View key={drill.id} style={styles.drillCard}>
+                  <View style={[styles.drillChip, {backgroundColor: drill.chipColor}]}>
+                    <Text style={styles.drillChipText}>{drill.chip}</Text>
+                  </View>
+
+                  <View style={styles.drillContent}>
+                    <Text style={styles.drillTitle}>{drill.title}</Text>
+                    <Text style={styles.drillDesc}>{drill.desc}</Text>
+                  </View>
+
+                  <TouchableOpacity style={styles.drillAction} onPress={() => handleStartingDrill(drill.id)}>
+                    <Text style={styles.drillActionText}>Натисни, щоб розпочати прототип</Text>
+                    <Ionicons name="arrow-forward-outline" size={20} color="#a8aeb6ff"/>
+                  </TouchableOpacity>
+                </View>
+              )
+            )
+          }
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -596,6 +632,54 @@ const styles = StyleSheet.create
     {
       fontSize: 12,
       color: "#94a3b8"
+    },
+    drillCard:
+    {
+      backgroundColor: "#fff",
+      borderRadius: 16,
+      padding: 16,
+      marginBottom: 16,
+      gap: 12
+    },
+    drillChip:
+    {
+      alignSelf: "flex-start",
+      borderRadius: 12,
+      paddingVertical: 4,
+      paddingHorizontal: 12
+    },
+    drillChipText:
+    {
+      color: "#0f172a",
+      fontSize: 12,
+      fontWeight: "600"
+    },
+    drillContent:
+    {
+      gap: 4
+    },
+    drillTitle:
+    {
+      fontSize: 16,
+      fontWeight: "600",
+      color: "#0f172a"
+    },
+    drillDesc:
+    {
+      fontSize: 13,
+      color: "#475569"
+    },
+    drillAction:
+    {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginTop: 8,
+    },
+    drillActionText:
+    {
+      color: "#afb8c5ff",
+      fontWeight: "600"
     }
   }
 );
