@@ -119,6 +119,23 @@ export default function ProfileScreen()
 					)
 				}
 			</View>
+
+			<View style={styles.section}>
+				<Text style={styles.sectionTitle}>Ідеї автоматизації</Text>
+
+				{
+					automationIdeas.map
+					(
+						(idea, index) =>
+						(
+							<View key={index} style={styles.automationIdeaCard}>
+								<Ionicons name={"sparkles-outline"} size={20} color="#a08bb9"/>
+								<Text style={styles.automationIdea}>{idea}</Text>
+							</View>
+						)
+					)
+				}
+			</View>
 		</ScrollView>
 	</SafeAreaView>
 	);
@@ -272,5 +289,19 @@ const styles = StyleSheet.create
 	  fontSize: 14,
 	  color: "#475569",
 	},
+	automationIdeaCard:
+	{
+	  flexDirection: "row",
+	  alignItems: "center",
+	  backgroundColor: "#fff",
+	  borderRadius: 16,
+	  padding: 12,
+	  gap: 12,
+	},
+	automationIdea:
+	{
+	  width: "95%",
+	  fontSize: 14,
+	}
   }
 );
