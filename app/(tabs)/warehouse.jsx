@@ -21,6 +21,33 @@ const storageShelves = [
   },
 ];
 
+const checkins = [
+  {
+    id: 'chk-1',
+    title: 'Скан тікета від постачальника',
+    detail: 'Зчитати QR і створити нову вхідну поставку у локальному state.',
+    icon: 'scan-outline',
+  },
+  {
+    id: 'chk-2',
+    title: 'Контроль температури',
+    detail: 'Змоделювати підключення сенсора і показати діапазон на графіку.',
+    icon: 'thermometer-outline',
+  },
+  {
+    id: 'chk-3',
+    title: 'Фото стану складу',
+    detail: 'Зробити прев\'ю з expo-image та дозволити залишати нотатку.',
+    icon: 'camera-outline',
+  },
+];
+
+const automationIdeas = [
+  'Напиши функцію автопереобліку, що синхронізується при стабільному Wi-Fi.',
+  'Зроби push-нагадування у разі status === critical.',
+  'Додай режим сортування та пошуку, щоб тренувати роботу з FlatList.',
+];
+
 export default function ProfileScreen()
 {
 	return (
@@ -64,6 +91,29 @@ export default function ProfileScreen()
 										)
 									)
 								}
+							</View>
+						)
+					)
+				}
+			</View>
+
+			<View style={styles.section}>
+				<Text style={styles.sectionTitle}>Чек-ін сценарії</Text>
+
+				{
+					checkins.map
+					(
+						(checkin) =>
+						(
+							<View key={checkin.id} style={styles.checkinCard}>
+								<View style={styles.checkinIconContainer}>
+									<Ionicons name={checkin.icon} size={20} color="#1d2a3a"/>
+								</View>
+								
+								<View style={styles.checkinTextContainer}>
+									<Text style={styles.checkingTitle}>{checkin.title}</Text>
+									<Text style={styles.checkinDetail}>{checkin.detail}</Text>
+								</View>
 							</View>
 						)
 					)
@@ -187,6 +237,40 @@ const styles = StyleSheet.create
 	statusCritical:
 	{
 	  backgroundColor: "#fee2e2",
-	}
+	},
+	checkinCard:
+	{
+	  flexDirection: "row",
+	  alignItems: "center",
+	  backgroundColor: "#fff",
+	  borderRadius: 16,
+	  paddingHorizontal: 16,
+	  paddingVertical: 12,
+	  gap: 16,
+	},
+	checkinIconContainer:
+	{
+	  width: 40,
+	  height: 40,
+	  borderRadius: 12,
+	  backgroundColor: "#e0f1fb",
+	  justifyContent: "center",
+	  alignItems: "center",
+	},
+	checkinTextContainer:
+	{
+	  width: "85%",
+	  gap: 4,
+	},
+	checkingTitle:
+	{
+	  fontSize: 16,
+	  fontWeight: "600",
+	},
+	checkinDetail:
+	{
+	  fontSize: 14,
+	  color: "#475569",
+	},
   }
 );
